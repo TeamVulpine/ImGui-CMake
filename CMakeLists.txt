@@ -12,7 +12,9 @@ target_include_directories(ImGui PUBLIC
     ${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
-if(TARGET SDL3::SDL3)
+option(IMGUI_USE_SDL3 "Enable the SDL3 backend for ImGui" OFF)
+
+if(${IMGUI_USE_SDL3})
     add_library(ImGui_SDL3 STATIC
         imgui/backends/imgui_impl_sdl3.cpp
     )
@@ -23,7 +25,9 @@ if(TARGET SDL3::SDL3)
     add_library(ImGui::SDL3 ALIAS ImGui_SDL3)
 endif()
 
-if(DEFINED WEBGPU_BACKEND AND TARGET webgpu)
+option(IMGUI_USE_WEBGPU "Enable the WebGPU backend for ImGui" OFF)
+
+if(${IMGUI_USE_WEBGPU})
     add_library(ImGui_WebGPU STATIC
         imgui/backends/imgui_impl_wgpu.cpp
     )
